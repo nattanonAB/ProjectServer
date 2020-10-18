@@ -2,11 +2,11 @@
     <div id="comment">
         <div class="comments-wrapper">
             <div class="comment-form-wrapper">
-                <h4>Comments</h4>
+                <h4>ความคิดเห็น</h4>
                 <form v-on:submit.prevent="sendComment">
                     <p><textarea rows="5" class="form-control" v-model="comment"></textarea></p>
-                    <p v-if="user == null">Login / Register for commented.</p>
-                    <p v-else ><button type="submit" class="btn btn-primary"><i class="fas fa-comment"></i> Send Comment</button></p>
+                    <p v-if="user == null">เข้าสู่ระบบ / ลงทะเบียน.</p>
+                    <p v-else ><button type="submit" class="btn btn-primary"><i class="fas fa-comment"></i> ส่ง</button></p>
                 </form>
             </div>
             <transition-group tag="ul" name="fade" class="comment-list">
@@ -35,7 +35,7 @@
     import EditComment from '@/components/Fronts/EditComment'
     import UsersService from '@/services/UsersService'
     export default {
-        props:['blogid', 'user'],
+        props:['tourid', 'user'],
         data () {
             return {
                 comment: null,
@@ -63,7 +63,7 @@
             },
             async reloadComment () {
                 try {
-                    this.comments = (await CommentsService.blog(this.blogid)).data
+                    this.comments = (await CommentsService.tour(this.tourid)).data
                     this.comments.map((comment) => {this.editState.push({id:comment.id, status:false})})
                 } catch (error) {
                     console.log (error)
@@ -73,7 +73,7 @@
                 // console.log(`comment: ${this.comment}`)
                 try {
                     let comment = {
-                        blogId:this.blogid,
+                        tourId:this.tourid,
                         comment:this.comment,
                         userId:this.user.id
                     }
@@ -117,7 +117,7 @@
 
 </script>
 <style scoped>
-.blog-wrapper {
+.tour-wrapper {
  margin-top:80px;
 }
 /* thumbnail */

@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const Blog = sequelize.define('Blog', {
+    const Tour = sequelize.define('Tour', {
         title: DataTypes.STRING,
         thumbnail: DataTypes.STRING,
         pictures: DataTypes.STRING,
@@ -8,5 +8,5 @@ module.exports = (sequelize, DataTypes) => {
         status: DataTypes.STRING,
     })
     
-    return Blog
+    return Tour
 }

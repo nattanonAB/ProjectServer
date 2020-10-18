@@ -5,7 +5,7 @@
       <br />
       <br />
       <br />
-      <h2>ส่วนจัดการ Users</h2>
+      <h2>ส่วนจัดการผู้ใช้งาน</h2>
       <div>
         <form class="form-inline form-search">
           <div class="form-group">
@@ -15,7 +15,7 @@
                 v-model="search"
                 class="form-control"
                 id="exampleInputAmount"
-                placeholder="Search"
+                placeholder="ค้นหา"
               />
               <div class="input-group-addon">
                 <i class="fas fa-search"></i>
@@ -39,10 +39,10 @@
         <div class="blog-info">
           <p>id: {{ user.id }}</p>
           <p>ชื่อ-นามสกุล: {{ user.name }} - {{ user.lastname }}</p>
-          <p>email: {{ user.email }}</p>
-          <p>password: {{ user.password }}</p>
-          <p>status: {{ user.status }}</p>
-          <p>type: {{ user.type }}</p>
+          <p>อีเมล: {{ user.email }}</p>
+          <p>รหัส: {{ user.password }}</p>
+          <p>สถานะ: {{ user.status }}</p>
+          <p>ระดับ: {{ user.type }}</p>
 
           <p>
             <button
@@ -57,14 +57,14 @@
           </p>
           <p>
             <a class="btn btn-danger btn-sm" href="#" v-on:click.prevent="pauseUser(user.id)">
-              <i class="fas fa-pause"></i>Pause
+              <i class="fas fa-pause"></i> ระงับ
             </a>&nbsp;
             <a
               class="btn btn-success btn-sm"
               href="#"
               v-on:click.prevent="activeUser(user.id)"
             >
-              <i class="fas fa-check"></i>Active
+              <i class="fas fa-check"></i> เปิดใช้
             </a>&nbsp;
           </p>
         </div>

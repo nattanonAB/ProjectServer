@@ -5,7 +5,7 @@
         <div class="row">
           <div class="con-md-12">
             <div class="login-wrapper">
-              <h1>Login</h1>
+              <h1>เข้าสู่ระบบ</h1>
               <form v-on:submit.prevent="onLogin" class="form-horizontal">
                 <div class="form-group">
                   <label for="" class="control-label col-md-3">Username: </label>
@@ -61,7 +61,7 @@ export default {
         this.$store.dispatch('setUser', response.data.user)
 
         this.$router.push({
-          name: 'blogs'
+          name: 'tours'
         })
         console.log(response.data)
         

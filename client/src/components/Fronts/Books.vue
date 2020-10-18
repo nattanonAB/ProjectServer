@@ -4,12 +4,12 @@
     <div class="hero-wrapper">
       <div class="component-wrapper">
         <div class="hero">
-          <img src="@/assets/logo.png" class="logo" style="float:left" />
-          <h1>ร้านหนังสือออนไลน์สั่ง ซื้อได้เลยครับ</h1>
-          <p>By Gooddev.ME</p>
+          <img src="@/assets/tour.png" class="logo" style="float:left" />
+          <h1>มั่นใจไปท่องเทียวกับเรา T&T Tour</h1>
+          <p>By TOEY and TAPE</p>
         </div>
         <div class="container new-book">
-          <h2>หนังสือมาใหม่</h2>
+          <h2>สถานที่ท่องเที่ยว</h2>
           <div class="row">
             <div class="col-md-3" v-for="book in newBooks" v-bind:key="book.id">
               <div v-if="book.thumbnail != 'null'">
@@ -65,7 +65,7 @@
               <a v-on:click.prevent="setCategory(cate)" href="#">{{ cate }}</a>
             </li>
             <li class="clear">
-              <a v-on:click.prevent="setCategory(' ')" href="#">Clear</a>
+              <a v-on:click.prevent="setCategory(' ')" href="#">ล้าง</a>
             </li>
           </ul>
           <div class="clearfix"></div>
@@ -101,11 +101,11 @@
             <div v-html="book.content.slice(0,200) + '...'"></div>
             <div class="book-info">
               <p>
-                <strong>Category:</strong>
+                <strong>ประเภท:</strong>
                 {{ book.category }}
               </p>
               <p>
-                <strong>Create:</strong>
+                <strong>สร้าง:</strong>
                 {{ book.createdAt }}
               </p>
               <!-- <p>status: {{ book.status }}</p> -->
@@ -378,7 +378,8 @@ export default {
 }
 .logo {
   padding-right: 20px;
-  max-width: 200px;
+  height: 210px;
+  width: 710px;
 }
 .empty-book {
   width: 100%;

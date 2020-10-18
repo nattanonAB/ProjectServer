@@ -8,19 +8,19 @@
       <div class="form-wrapper" v-if="user != null">
         <div class="form-horizontal">
           <div class="form-group">
-            <label for class="control-label col-md-2">Name:</label>
+            <label for class="control-label col-md-2">ชื่อ:</label>
             <div class="col-md-8">
               <input class="form-control" type="text" v-model="user.name" disabled />
             </div>
           </div>
           <div class="form-group">
-            <label for class="control-label col-md-2">Lastname:</label>
+            <label for class="control-label col-md-2">นามสกุล:</label>
             <div class="col-md-8">
               <input class="form-control" type="text" v-model="user.lastname" disabled />
             </div>
           </div>
           <div class="form-group">
-            <label for class="control-label col-md-2">Email:</label>
+            <label for class="control-label col-md-2">อีเมล:</label>
             <div class="col-md-8">
               <input class="form-control" type="email" v-model="user.email" disabled />
             </div>

@@ -5,7 +5,7 @@
       <div class="container">
         <div class="navbar-header">
           <a class="navbar-brand navbar-link" href="#" von:click.prevent="navigateTo('/dashboard')">
-            <img src="@/assets/logo.png" id="logo" />
+            <img src="@/assets/tour1.png" id="logo" />
           </a>
           <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1">
             <span class="sr-only">Toggle navigation</span>
@@ -18,17 +18,17 @@
           <ul class="nav navbar-nav navbar-right">
             <li role="presentation">
               <router-link :to="{name: 'front'}">
-                <i class="fas fa-home"></i> Home
+                <i class="fas fa-home"></i> หน้าหลัก
               </router-link>
             </li>
             <li role="presentation">
               <router-link :to="{name: 'front-books'}">
-                <i class="fas fa-book-open"></i> books
+                <i class="fas fa-book-open"></i> จองทัวร์
               </router-link>
             </li>
 
             <li v-if="!isUserLoggedIn" role="presentation">
-              <a href="#" v-on:click.prevent="showLogin = true ;showRegister=false">Login</a>
+              <a href="#" v-on:click.prevent="showLogin = true ;showRegister=false">เข้าสู่ระบบ</a>
             </li>
             <transition name="fade">
               <li v-if="isUserLoggedIn" role="presentation">
@@ -36,10 +36,10 @@
               </li>
             </transition>
             <li v-if="isUserLoggedIn" role="presentation">
-              <a href="#" v-on:click.prevent="logout">Logout</a>
+              <a href="#" v-on:click.prevent="logout">ออกจากระบบ</a>
             </li>
             <li v-if="!isUserLoggedIn" role="presentation">
-              <a href="#" v-on:click.prevent="showRegister = true ;showLogin = false">Register</a>
+              <a href="#" v-on:click.prevent="showRegister = true ;showLogin = false">ลงทะเบียน</a>
             </li>
           </ul>
         </div>
@@ -48,10 +48,10 @@
     <div class="modal" v-if="showRegister">
       <transition name="fade">
         <div class="login-wrapperr">
-          <h3>Client Register</h3>
+          <h3>ลงทะเบียนผู้ใช้งาน</h3>
           <form v-on:submit.prevent="clientRegister" class="formhorizontal">
             <div class="form-group">
-              <label class="control-label col-md-3">Email:</label>
+              <label class="control-label col-md-3">อีเมล:</label>
               <div class="col-md-9">
                 <input
                   required
@@ -64,7 +64,7 @@
             </div>
 
             <div class="form-group">
-              <label class="control-label col-md-3">Password:</label>
+              <label class="control-label col-md-3">รหัส:</label>
               <div class="col-md-9">
                 <input
                   required
@@ -79,7 +79,7 @@
 
 
             <div class="form-group">
-              <label class="control-label col-md-3">Name:</label>
+              <label class="control-label col-md-3">ชื่อ:</label>
               <div class="col-md-9">
                 <input
                   required
@@ -92,7 +92,7 @@
             </div>
 
             <div class="form-group">
-              <label class="control-label col-md-3">Lastname:</label>
+              <label class="control-label col-md-3">นามสกุล:</label>
               <div class="col-md-9">
                 <input
                   required
@@ -111,14 +111,14 @@
             <div class="form-group">
               <div class="col-md-offset-3 col-md-9">
                 <button class="btn btn-success btn-sm" type="submit">
-                  <i class="fas fa-key"></i> Register
+                  <i class="fas fa-key"></i> ลงทะเบียน
                 </button>
                 <button
                   v-on:click.prevent="showRegister = false"
                   class="btn btn-danger btn-sm"
                   type="button"
                 >
-                  <i class="fas fa-timescircle"></i> Close
+                  <i class="fas fa-timescircle"></i> ปิด
                 </button>
               </div>
             </div>
@@ -137,10 +137,10 @@
     <div class="modal" v-if="showLogin ">
       <transition name="fade">
         <div class="login-wrapper">
-          <h3>Client Login</h3>
+          <h3>เข้าสู่ระบบ</h3>
           <form v-on:submit.prevent="clientLogin" class="formhorizontal">
             <div class="form-group">
-              <label class="control-label col-md-3">Email:</label>
+              <label class="control-label col-md-3">อีเมล:</label>
               <div class="col-md-9">
                 <input placeholder="email" type="email" v-model="email" class="form-control" />
               </div>
@@ -148,7 +148,7 @@
             <br>
             <br>
             <div class="form-group">
-              <label class="control-label col-md-3">Password: &nbsp; &nbsp;   </label> 
+              <label class="control-label col-md-3">รหัส: &nbsp; &nbsp;   </label> 
               <div class="col-md-9">
                 <input
                   type="password"
@@ -162,14 +162,14 @@
             <div class="form-group">
               <div class="col-md-offset-3 col-md-9">
                 <button class="btn btn-success btn-sm" type="submit">
-                  <i class="fas fa-key"></i> Login
+                  <i class="fas fa-key"></i> เข้าสู่ระบบ
                 </button>
                 <button
                   v-on:click.prevent="showLogin = false"
                   class="btn btn-danger btn-sm"
                   type="button"
                 >
-                  <i class="fas fa-timescircle"></i> Close
+                  <i class="fas fa-timescircle"></i> ปิด
                 </button>
               </div>
             </div>
@@ -244,7 +244,7 @@ export default {
         this.$store.dispatch("setToken", response.data.token);
         this.$store.dispatch("setUser", response.data.user);
         // this.$router.push({
-        // name: 'blogs'
+        // name: 'tours'
         // })
         // console.log(response.data)
         (this.email = ""), (this.password = ""), (this.showLogin = false);
@@ -285,7 +285,7 @@ export default {
 .popup-msg {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   border: solid 1px #ddd;
-  background: #fff;
+  background: rgb(255, 255, 255);
   max-width: 200px;
   padding: 10px;
   position: fixed;
@@ -296,7 +296,7 @@ export default {
   margin-right: 5px;
 }
 .navbar-brand > img {
-  width: 36px;
+  width: 40px;
   padding: 12px 0;
   margin-top: -20px;
 }
@@ -334,7 +334,7 @@ export default {
   width: 360px;
   height: 260px ;
   padding: 10px 30px 20px 30px;
-  background-color: #fefefe;
+  background-color: #ffffff;
   margin: 15% auto; /* 15% from the top and centered */
   /* padding: 20px; */
 }

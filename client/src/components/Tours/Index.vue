@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <main-header navsel="back"></main-header>
-    <div class="blog-header">
+    <div class="tour-header">
       <br />
       <br />
-      <h2>ส่วนจัดการ Blogs</h2>
+      <h2>ส่วนจัดการจังหวัด</h2>
       <div>
         <form class="form-inline form-search">
           <div class="form-group">
@@ -14,7 +14,7 @@
                 v-model="search"
                 class="form-control"
                 id="exampleInputAmount"
-                placeholder="Search"
+                placeholder="ค้นหา"
               />
               <div class="input-group-addon">
                 <i class="fas fa-search"></i>
@@ -24,9 +24,9 @@
         </form>
       </div>
 
-      <div class="create-blog">
-        <button class="btn btn-success btn-sm" v-on:click="navigateTo('/blog/create')">Create blog</button>
-        <strong>จํานวน blog:</strong>
+      <div class="create-tour">
+        <button class="btn btn-success btn-sm" v-on:click="navigateTo('/tour/create')">สร้างจังหวัด</button>
+        <strong>จํานวนจังหวัด:</strong>
         {{results.length}}
       </div>
 
@@ -35,48 +35,48 @@
           <a v-on:click.prevent="setCategory(cate)" href="#">{{ cate }}</a>
         </li>
         <li class="clear">
-          <a v-on:click.prevent="setCategory(' ')" href="#">Clear</a>
+          <a v-on:click.prevent="setCategory(' ')" href="#">ล้าง</a>
         </li>
       </ul>
       <div class="clearfix"></div>
     </div>
     <transition-group name="fade">
-      <div v-for="blog in blogs" v-bind:key="blog.id" class="blog-list">
-        <!-- <p>id: {{ blog.id }}</p> -->
-        <div class="blog-pic">
+      <div v-for="tour in tours" v-bind:key="tour.id" class="tour-list">
+        <!-- <p>id: {{ tour.id }}</p> -->
+        <div class="tour-pic">
           <!-- <transition name="fade"> -->
-          <div class="thumbnail-pic" v-if="blog.thumbnail != 'null'">
-            <img :src="BASE_URL+blog.thumbnail" alt="thumbnail" />
+          <div class="thumbnail-pic" v-if="tour.thumbnail != 'null'">
+            <img :src="BASE_URL+tour.thumbnail" alt="thumbnail" />
           </div>
           <!-- </transition> -->
         </div>
-        <h3>{{ blog.title }}</h3>
-        <div v-html="blog.content.slice(0,200) + '...'"></div>
-        <div class="blog-info">
+        <h3>{{ tour.title }}</h3>
+        <div v-html="tour.content.slice(0,200) + '...'"></div>
+        <div class="tour-info">
           <p>
-            <strong>Category:</strong>
-            {{ blog.category }}
+            <strong>จังหวัด:</strong>
+            {{ tour.category }}
           </p>
           <p>
-            <strong>Create:</strong>
-            {{ blog.createdAt }}
+            <strong>สร้าง:</strong>
+            {{ tour.createdAt }}
           </p>
           <p>
-            <strong>status:</strong>
-            {{ blog.status }}
+            <strong>สถานะ:</strong>
+            {{ tour.status }}
           </p>
-          <!-- <p>status: {{ blog.status }}</p> -->
+          <!-- <p>status: {{ tour.status }}</p> -->
           <p>
-            <button class="btn btn-sm btn-info" v-on:click="navigateTo('/blog/'+ blog.id)">View Blog</button>
-            <button class="btn btn-sm btn-warning" v-on:click="navigateTo('/blog/edit/'+ blog.id)">Edit blog</button>
-            <button class="btn btn-sm btn-danger" v-on:click="deleteBlog(blog)">Delete</button>
+            <button class="btn btn-sm btn-info" v-on:click="navigateTo('/tour/'+ tour.id)">ดูรายละเอียด</button>
+            <button class="btn btn-sm btn-warning" v-on:click="navigateTo('/tour/edit/'+ tour.id)">เเก้ไข</button>
+            <button class="btn btn-sm btn-danger" v-on:click="deleteTour(tour)">Delete</button>
           </p>
           <p>
-            <a class="btn btn-danger btn-sm" href="#" v-on:click.prevent="suspend(blog.id)">
-              <i class="fas fa-pause"></i> Suspend
+            <a class="btn btn-danger btn-sm" href="#" v-on:click.prevent="suspend(tour.id)">
+              <i class="fas fa-pause"></i> ระงับ
             </a>&nbsp;
-            <a class="btn btn-success btn-sm" href="#" v-on:click.prevent="publish(blog.id)">
-              <i class="fas fa-check"></i> Published
+            <a class="btn btn-success btn-sm" href="#" v-on:click.prevent="publish(tour.id)">
+              <i class="fas fa-check"></i> เปิดใช้
             </a>&nbsp;
           </p>
         </div>
@@ -84,15 +84,15 @@
       </div>
     </transition-group>
 
-    <div id="blog-list-bottom">
-      <div class="empty-blog" v-if="blogs.length === 0 && loading === false">*** ไม่มีข้อมูล***</div>
-      <div class="empty-blog" v-if="blogs.length === 0 && loading === true">*** ไม่มีข้อมูล***</div>
-      <div class="blog-load-finished" v-if="blogs.length === results.length && results.length > 0" >โหลดข้อมูลครบแล้ว</div>
+    <div id="tour-list-bottom">
+      <div class="empty-tour" v-if="tours.length === 0 && loading === false">*** ไม่มีข้อมูล***</div>
+      <div class="empty-tour" v-if="tours.length === 0 && loading === true">*** ไม่มีข้อมูล***</div>
+      <div class="tour-load-finished" v-if="tours.length === results.length && results.length > 0" >โหลดข้อมูลครบแล้ว</div>
     </div>
   </div>
 </template>
 <script>
-import BlogsService from "@/services/BlogsService";
+import ToursService from "@/services/ToursService";
 import _ from "lodash";
 import ScrollMonitor from "scrollMonitor";
 
@@ -103,7 +103,7 @@ export default {
   watch: {
     search: _.debounce(async function (value) {
       const route = {
-        name: "blogs",
+        name: "tours",
       };
 
       if (this.search !== "") {
@@ -119,20 +119,20 @@ export default {
     "$route.query.search": {
       immediate: true,
       async handler(value) {
-        this.blogs = [];
+        this.tours = [];
         this.results = [];
         this.loading = true;
-        this.results = (await BlogsService.index(value)).data;
+        this.results = (await ToursService.index(value)).data;
         this.appendResults();
 
-        this.results.forEach((blog) => {
+        this.results.forEach((tour) => {
           if (this.category.length > 0) {
-            // console.log(this.category.indexOf(blog.category))
-            if (this.category.indexOf(blog.category) === -1) {
-              this.category.push(blog.category);
+            // console.log(this.category.indexOf(tour.category))
+            if (this.category.indexOf(tour.category) === -1) {
+              this.category.push(tour.category);
             }
           } else {
-            this.category.push(blog.category);
+            this.category.push(tour.category);
           }
         });
         this.loading = false;
@@ -143,7 +143,7 @@ export default {
   },
   data() {
     return {
-      blogs: [],
+      tours: [],
       BASE_URL: "http://localhost:8081/assets/uploads/",
       search: "",
       results: [],
@@ -152,7 +152,7 @@ export default {
     };
   },
   async created() {
-    this.blogs = (await BlogsService.index()).data;
+    this.tours = (await ToursService.index()).data;
   },
   methods: {
     wait(ms) {
@@ -161,27 +161,27 @@ export default {
       };
     },
     appendResults: function () {
-      if (this.blogs.length < this.results.length) {
+      if (this.tours.length < this.results.length) {
         let toAppend = this.results.slice(
-          this.blogs.length,
-          LOAD_NUM + this.blogs.length // จำกัดการแสดงผล
+          this.tours.length,
+          LOAD_NUM + this.tours.length // จำกัดการแสดงผล
         );
-        this.blogs = this.blogs.concat(toAppend);
+        this.tours = this.tours.concat(toAppend);
       }
     },
     navigateTo(route) {
       this.$router.push(route);
     },
-    async deleteBlog(blog) {
+    async deleteTour(tour) {
       try {
-        await BlogsService.delete(blog);
+        await ToursService.delete(tour);
         this.refreshData();
       } catch (err) {
         console.log(err);
       }
     },
     async refreshData() {
-      this.blogs = (await BlogsService.index()).data;
+      this.tours = (await ToursService.index()).data;
     },
     setCategory(keyword) {
       if (keyword === " ") {
@@ -192,7 +192,7 @@ export default {
       }
     },
     updated() {
-      let sens = document.querySelector("#blog-list-bottom");
+      let sens = document.querySelector("#tour-list-bottom");
       pageWatcher = ScrollMonitor.create(sens);
       pageWatcher.enterViewport(this.appendResults);
     },
@@ -202,25 +202,25 @@ export default {
         pageWatcher = null;
       }
     },
-    async suspend(blogId) {
+    async suspend(tourId) {
       let user = {
-        id: blogId,
+        id: tourId,
         status: " Suspend",
       };
       try {
-        await BlogsService.put(user);
+        await ToursService.put(user);
         this.refreshData();
       } catch (error) {
         console.log(error);
       }
     },
-    async publish(blogId) {
+    async publish(tourId) {
       let user = {
-        id: blogId,
+        id: tourId,
         status: "published",
       };
       try {
-        await BlogsService.put(user);
+        await ToursService.put(user);
         this.refreshData();
       } catch (error) {
         console.log(error);
@@ -230,29 +230,29 @@ export default {
 };
 </script>
 <style scoped>
-.empty-blog {
+.empty-tour {
 
   width: 100%;
   text-align: center;
   padding: 4px;
   background: coral;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 /* thumbnail */
 .thumbnail-pic img {
   width: 200px;
   padding: 5px 10px 0px 0px;
 }
-.blog-info {
+.tour-info {
   float: left;
 }
-.blog-pic {
+.tour-pic {
   float: left;
 }
 .clearfix {
   clear: both;
 }
-.blog-list {
+.tour-list {
   border: solid 1px #dfdfdf;
   margin-bottom: 10px;
   max-width: 900px;
@@ -261,17 +261,17 @@ export default {
   padding: 5px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
-.blog-header {
+.tour-header {
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
 }
 
-#blog-list-bottom {
+#tour-list-bottom {
   padding-top: 4px;
 }
 
-#blog-list-bottom {
+#tour-list-bottom {
   padding: 10px;
   text-align: center;
   /*background: seagreen;*/
@@ -293,20 +293,20 @@ export default {
   color: black;
   text-decoration: none;
 }
-.create-blog {
+.create-tour {
   margin-top: 10px;
 }
 .categories li.clear a {
   background: tomato;
   color: white;
 }
-.blog-load-finished {
+.tour-load-finished {
   padding: 4px;
   text-align: center;
   background: seagreen;
   color: white;
 }
-.emptyblog {
+.emptytour {
   background-color: coral;
   border-color: coral;
 }

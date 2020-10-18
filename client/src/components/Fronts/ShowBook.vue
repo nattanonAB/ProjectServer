@@ -3,14 +3,14 @@
     <main-header navsel="front"></main-header>
     <div v-if="book">
       <div class="hero">
-        <img src="@/assets/logo.png" class="logo" style="float:left" />
-        <h1>ร้านหนังสือออนไลน์สั่ง ซื้อได้เลยครับ</h1>
-        <p>By Gooddev.ME</p>
+        <img src="@/assets/tour.png" class="logo" style="float:left" />
+        <h1>เว็บไซต์จองทัวร์ท่องเที่ยวอันดับ 1 ในไทย</h1>
+        <p>By TOEY and TAPE</p>
       </div>
       <div class="book-wrapper" v-if="book != null">
         <h1>{{ book.title }}</h1>
         <p>
-          <strong>Category:</strong>:
+          <strong>ประเภท:</strong>:
           <a
             href="#"
             v-on:click.prevent="navigateTo(`/front?search=${book.category}`)"
@@ -22,7 +22,7 @@
       </div>
       <div class="back-nav">
         <button class="btn btn-success" v-on:click="navigateTo('/front-books')">
-          <i class="fas fa-arrow-left"></i> Back..
+          <i class="fas fa-arrow-left"></i> ย้อนกลับ..
         </button>
       </div>
       <br />
@@ -83,6 +83,7 @@ export default {
 }
 .logo {
   padding-right: 20px;
+  
 }
 .hero {
   margin-top: 80px;
@@ -97,7 +98,8 @@ export default {
 }
 .logo {
   padding-right: 20px;
-  max-width: 200px;
+  height: 210px;
+  width: 710px;
 }
 .book-wrapper {
   margin-top: 20px;

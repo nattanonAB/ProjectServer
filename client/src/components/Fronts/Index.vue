@@ -4,17 +4,17 @@
     <div class="hero-wrapper">
       <div class="component-wrapper">
         <div class="hero">
-          <img src="@/assets/logo.png" class="logo" style="float:left" />
-          <h1>Webblot from nodejs + vuejs Ebook</h1>
-          <p>By Gooddev.ME</p>
+          <img src="@/assets/tour.png" class="logo" style="float:left" />
+          <h1>ยินดีต้อนรับเข้าสู่ T&T Tour</h1>
+          <p>By TOEY and TAPE</p>
         </div>
 
         <div class="clearfix"></div>
-        <div class="blog-header">
+        <div class="tour-header">
           <div>
             <form class="form-inline form-search">
               <span>
-                <strong>จํานวน blog:</strong>
+                <strong>จํานวนจังหวัด:</strong>
                 {{results.length}}
               </span>
               &nbsp;
@@ -25,7 +25,7 @@
                     v-model="search"
                     class="form-control"
                     id="exampleInputAmount"
-                    placeholder="Search"
+                    placeholder="ค้นหา"
                   />
                   <div class="input-group-addon">
                     <i class="fas fa-search"></i>
@@ -39,50 +39,50 @@
               <a v-on:click.prevent="setCategory(cate)" href="#">{{ cate }}</a>
             </li>
             <li class="clear">
-              <a v-on:click.prevent="setCategory(' ')" href="#">Clear</a>
+              <a v-on:click.prevent="setCategory(' ')" href="#">ล้าง</a>
             </li>
           </ul>
           <div class="clearfix"></div>
         </div>
         <transition-group name="fade">
-          <div v-for="blog in blogs" v-bind:key="blog.id" class="blog-list">
-            <!-- <p>id: {{ blog.id }}</p> -->
-            <div class="blog-pic">
+          <div v-for="tour in tours" v-bind:key="tour.id" class="tour-list">
+            <!-- <p>id: {{ tour.id }}</p> -->
+            <div class="tour-pic">
               <!-- <transition name="fade"> -->
-              <div class="thumbnail-pic" v-if="blog.thumbnail != 'null'">
-                <img :src="BASE_URL+blog.thumbnail" alt="thumbnail" />
+              <div class="thumbnail-pic" v-if="tour.thumbnail != 'null'">
+                <img :src="BASE_URL+tour.thumbnail" alt="thumbnail" />
               </div>
               <!-- </transition> -->
             </div>
-            <h3>{{ blog.title }}</h3>
-            <div v-html="blog.content.slice(0,200) + '...'"></div>
-            <div class="blog-info">
+            <h3>{{ tour.title }}</h3>
+            <div v-html="tour.content.slice(0,200) + '...'"></div>
+            <div class="tour-info">
               <p>
-                <strong>Category:</strong>
-                {{ blog.category }}
+                <strong>จังหวัด:</strong>
+                {{ tour.category }}
               </p>
               <p>
-                <strong>Create:</strong>
-                {{ blog.createdAt }}
+                <strong>เวลาสร้าง:</strong>
+                {{ tour.createdAt }}
               </p>
-              <!-- <p>status: {{ blog.status }}</p> -->
+              <!-- <p>status: {{ tour.status }}</p> -->
               <p>
                 <button
                   class="btn btn-sm btn-info"
-                  v-on:click="navigateTo('/front/read/'+ blog.id)"
+                  v-on:click="navigateTo('/front/read/'+ tour.id)"
                 >
-                  <i class="fab fa-readme"></i> View Blog
+                  <i class="fab fa-readme"></i> ดูรายละเอี่ยด
                 </button>
               </p>
             </div>
             <div class="clearfix"></div>
           </div>
         </transition-group>
-        <div  v-if="blogs.length === 0 && loading === false" class="empty-blog">*** ไม่มีข้อมูล***</div>
-        <div id="blog-list-bottom">
+        <div  v-if="tours.length === 0 && loading === false" class="empty-tour">*** ไม่มีข้อมูล***</div>
+        <div id="tour-list-bottom">
           <div
-            class="blog-load-finished"
-            v-if="blogs.length === results.length && results.length > 0"
+            class="tour-load-finished"
+            v-if="tours.length === results.length && results.length > 0"
           >โหลดข้อมูลครบแล้ว</div>
         </div>
       </div>
@@ -90,7 +90,7 @@
   </div>
 </template>
 <script>
-import BlogsService from "@/services/BlogsService";
+import ToursService from "@/services/ToursService";
 import _ from "lodash";
 import ScrollMonitor from "scrollMonitor";
 import { mapState } from "vuex";
@@ -115,19 +115,19 @@ export default {
     "$route.query.search": {
       immediate: true,
       async handler(value) {
-        this.blogs = [];
+        this.tours = [];
         this.results = [];
         this.loading = true;
-        this.results = (await BlogsService.frontIndex(value)).data;
+        this.results = (await ToursService.frontIndex(value)).data;
         this.appendResults();
-        this.results.forEach((blog) => {
+        this.results.forEach((tour) => {
           if (this.category.length > 0) {
-            // console.log(this.category.indexOf(blog.category))
-            if (this.category.indexOf(blog.category) === -1) {
-              this.category.push(blog.category);
+            // console.log(this.category.indexOf(tour.category))
+            if (this.category.indexOf(tour.category) === -1) {
+              this.category.push(tour.category);
             }
           } else {
-            this.category.push(blog.category);
+            this.category.push(tour.category);
           }
         });
         this.loading = false;
@@ -138,7 +138,7 @@ export default {
   },
   data() {
     return {
-      blogs: [],
+      tours: [],
       BASE_URL: "http://localhost:8081/assets/uploads/",
       search: "",
       results: [],
@@ -147,16 +147,16 @@ export default {
     };
   },
   // async created () {
-  // this.blogs = (await BlogsService.index()).data
+  // this.tours = (await ToursService.index()).data
   // },
   methods: {
     appendResults: function () {
-      if (this.blogs.length < this.results.length) {
+      if (this.tours.length < this.results.length) {
         let toAppend = this.results.slice(
-          this.blogs.length,
-          LOAD_NUM + this.blogs.length
+          this.tours.length,
+          LOAD_NUM + this.tours.length
         );
-        this.blogs = this.blogs.concat(toAppend);
+        this.tours = this.tours.concat(toAppend);
       }
     },
     navigateTo(route) {
@@ -166,16 +166,16 @@ export default {
         this.$router.push(route);
       }
     },
-    async deleteBlog(blog) {
+    async deleteTour(tour) {
       try {
-        await BlogsService.delete(blog);
+        await ToursService.delete(tour);
         this.refreshData();
       } catch (err) {
         console.log(err);
       }
     },
     async refreshData() {
-      this.blogs = (await BlogsService.index()).data;
+      this.tours = (await ToursService.index()).data;
     },
     setCategory(keyword) {
       if (keyword === " ") {
@@ -187,7 +187,7 @@ export default {
     },
   },
   updated() {
-    let sens = document.querySelector("#blog-list-bottom");
+    let sens = document.querySelector("#tour-list-bottom");
     pageWatcher = ScrollMonitor.create(sens);
     pageWatcher.enterViewport(this.appendResults);
   },
@@ -220,18 +220,20 @@ export default {
   margin-left: auto;
   margin-right: auto;
   border-radius: 5px;
-  background: darkcyan;
+  background: rgb(105, 105, 105);
   height: 250px;
-  color: white;
+  color: rgb(255, 255, 255);
   padding: 20px;
 }
 .hero h1 {
-  margin-top: 30px;
+  margin-top: 0px;
 }
 .logo {
   padding-right: 20px;
+  height: 210px;
+  width: 610px;
 }
-.empty-blog {
+.empty-tour {
   width: 100%;
   text-align: center;
   padding: 10px;
@@ -245,16 +247,16 @@ export default {
   border: solid 1px #ccc;
   margin: 10px 10px 0px 0px;
 }
-.blog-info {
+.tour-info {
   float: left;
 }
-.blog-pic {
+.tour-pic {
   float: left;
 }
 .clearfix {
   clear: both;
 }
-.blog-list {
+.tour-list {
   border: solid 1px #dfdfdf;
   margin-bottom: 10px;
   max-width: 900px;
@@ -263,7 +265,7 @@ export default {
   padding: 5px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
-.blog-header {
+.tour-header {
   margin-top: 80px;
   max-width: 900px;
   margin-left: auto;
@@ -274,7 +276,7 @@ export default {
   text-align: center;
   color: white;
 }
-.blog-load-finished {
+.tour-load-finished {
   padding: 4px;
   text-align: center;
   background: seagreen;
@@ -300,7 +302,7 @@ export default {
   background: tomato;
   color: white;
 }
-.create-blog {
+.create-tour {
   margin-top: 10px;
 }
 @media (max-width: 768px) {
@@ -308,11 +310,11 @@ export default {
     width: 120px;
   }
 }
-.emptyblog {
+.emptytour {
   background-color: coral;
   border-color: coral;
 }
-.empty-blog {
+.empty-tour {
   width: 100%;
   text-align: center;
   padding: 4px;

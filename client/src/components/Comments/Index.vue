@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <main-header navsel="back"></main-header>
-        <div class="blog-header">
+        <div class="tour-header">
             <br><br><br>
             <h2>ส่วนจัดการ Comments</h2>
             
@@ -15,24 +15,24 @@
                 </div>
                 </form>
             </div>
-            <div class="create-blog">
+            <div class="create-tour">
                 <h4>จํานวน comment {{comments.length}}</h4>
             </div>
         </div>
-        <div v-for="comment in comments" v-bind:key="comment.id" class="blog-list">
+        <div v-for="comment in comments" v-bind:key="comment.id" class="tour-list">
             <strong>comment:</strong>
             <p>id: {{ comment.id }}</p>
-            <p>blog id: {{ comment.blogId }}</p>
+            <p>tour id: {{ comment.tourId }}</p>
             <p>comment: {{ comment.comment }}</p>
             <p>
-                <button class="btn btn-sm btn-info" v-on:click="navigateTo('/blog/'+ comment.blogId)">ดูบล็อกที่ Comment</button> 
+                <button class="btn btn-sm btn-info" v-on:click="navigateTo('/tour/'+ comment.tourId)">ดูบล็อกที่ Comment</button> 
                 <button class="btn btn-sm btn-danger" v-on:click="deleteComment(comment)">ลบข้อมูล</button>
             </p>
         </div>
-        <div id="blog-list-bottom">
-            <div class="empty-blog" v-if="comments.length === 0 && loading === false">*** ไม่มีข้อมูล***</div>
-            <div class="empty-blog" v-if="comments.length === 0 && loading === true">*** ไม่มีข้อมูล***</div>
-            <div class="blog-load-finished" v-if="comments.length === results.length && results.length > 0" >โหลดข้อมูลครบแล้ว</div>
+        <div id="tour-list-bottom">
+            <div class="empty-tour" v-if="comments.length === 0 && loading === false">*** ไม่มีข้อมูล***</div>
+            <div class="empty-tour" v-if="comments.length === 0 && loading === true">*** ไม่มีข้อมูล***</div>
+            <div class="tour-load-finished" v-if="comments.length === results.length && results.length > 0" >โหลดข้อมูลครบแล้ว</div>
         </div>
     </div>
 </template>
@@ -92,7 +92,7 @@ export default {
 }
 </script>
 <style scoped>
-.empty-blog {
+.empty-tour {
 
   width: 100%;
   text-align: center;
@@ -105,16 +105,16 @@ export default {
         width: 200px;
         padding: 5px 10px 0px 0px;
     }
-    .blog-info {
+    .tour-info {
         float: left;
     }
-    .blog-pic {
+    .tour-pic {
         float: left;
     }
     .clearfix {
         clear: both;
     }
-    .blog-list {
+    .tour-list {
         border:solid 1px #dfdfdf;
         margin-bottom: 10px;
         max-width: 900px;
@@ -123,17 +123,17 @@ export default {
         padding: 5px;
         box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
     }
-    .blog-header {
+    .tour-header {
         max-width: 900px;
         margin-left: auto;
         margin-right: auto;
     }
 
-    #blog-list-bottom{
+    #tour-list-bottom{
         padding-top:4px;
     }
 
-#blog-list-bottom {
+#tour-list-bottom {
   padding: 10px;
   text-align: center;
   /*background: seagreen;*/
@@ -155,14 +155,14 @@ export default {
         color: black;
         text-decoration: none;
     }
-    .create-blog {
+    .create-tour {
         margin-top: 10px;
     }
     .categories li.clear a {
         background: tomato;
         color: white
     }
-    .blog-load-finished {
+    .tour-load-finished {
   padding: 4px;
   text-align: center;
   background: seagreen;

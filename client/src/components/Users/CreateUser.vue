@@ -2,12 +2,12 @@
     <div>
         <main-header navsel="back"></main-header>
         <br><br><br>
-        <center><h1>Create User</h1>
+        <center><h1>สร้างผู้ใช้งาน</h1>
         <form v-on:submit.prevent = "createUser">
             <table border="0">
             <tr>
                 <th class="d">
-                    <center><b>name:</b></center>
+                    <center><b>ชื่อ:</b></center>
                 </th>
                 <th class ="c">
                     <input class="form-control center_div" type="text" v-model="user.name">
@@ -16,7 +16,7 @@
             <br>
             <tr>
                 <th class="d">
-                    <center><b>lastname:</b></center>
+                    <center><b>นามสกุล:</b></center>
                 </th>
                 <th class ="c">
                     <input class="form-control center_div" type="text" v-model="user.lastname">
@@ -25,7 +25,7 @@
             <br>
             <tr>
                 <th class="d">
-                    <center><b>email:</b></center>
+                    <center><b>อีเมล:</b></center>
                 </th>
                 <th class ="c">
                     <input class="form-control center_div" type="text" v-model="user.email">
@@ -34,7 +34,7 @@
             <br>
             <tr>
                 <th class="d">
-                    <center><b>password:</b></center>
+                    <center><b>รหัส:</b></center>
                 </th>
                 <th class ="c">
                     <input class="form-control center_div" type="text" v-model="user.password">
@@ -43,20 +43,20 @@
             <br>
             <tr>
                 <th class="d">
-                    <center><b>type:</b></center>
+                    <center><b>ระดับ:</b></center>
                 </th>
                 <th class ="c">
                     <select class="form-control" v-model="user.type">
-                        <option value="admin">Admin</option>
-                        <option value="user" >User</option>
+                        <option value="admin">ผู้ดูเเล</option>
+                        <option value="user" >ผู้ใช้</option>
                     </select>
                 </th>
             </tr>
             </table>
             <br>
                 <p>
-                    <button class="btn btn-success btn-sm" type="submit">Create user</button>
-                    <button class="btn btn-sm secondary" v-on:click="navigateTo('/users')">Back..</button>
+                    <button class="btn btn-success btn-sm" type="submit">ยืนยัน</button>
+                    <button class="btn btn-sm secondary" v-on:click="navigateTo('/users')">ย้อนกลับ..</button>
                 </p>
             
         </form>

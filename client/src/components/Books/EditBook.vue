@@ -1,11 +1,11 @@
 <template>
   <div class="container book-wrapper">
     <main-header navsel="back"></main-header>
-    <h1>Edit Book</h1>
+    <h1>เเก้ไขการจอง</h1>
     <form v-on:submit.prevent = "editBook" >
       <!-- <p>title: <input type="text" v-model="book.title"></p> -->
       <p>
-        <label for="" class="control-label">Title: </label>
+        <label for="" class="control-label">หัวข้อ: </label>
         <input type="text" v-model="book.title" class="form-control">        
       </p>
       <transition name="fade">
@@ -19,13 +19,13 @@
             accept="image/*" class="input-file">
             <!-- <p v-if="isInitial || isSuccess"> -->
             <p v-if="isInitial">
-              Drag your file(s) here to begin<br> or click to browse
+              ลากไฟล์มาไว้ที่นี่<br> หรือคลิกเพื่อเลือกไฟล์
             </p>
             <p v-if="isSaving">
-              Uploading {{ fileCount }} files...
+              กำลังอัปโหลด {{ fileCount }} ไฟล์...
             </p>   
             <p v-if="isSuccess">
-              Upload Successful.
+              อัปโหลดสำเร็จ.
             </p>        
         </div>
       </form>
@@ -34,25 +34,25 @@
         <li v-for="picture in pictures" v-bind:key="picture.id">              
           <img class="img-thumbnail" style="margin-bottom:5px;" :src="BASE_URL+picture.name" alt="picture image">              
           <br />  
-          <button class="btn btn-xs btn-info" v-on:click.prevent="useThumbnail(picture.name)">Thumbnail</button>
-          <button class="btn btn-xs btn-danger" v-on:click.prevent="delFile(picture)">Delete</button>
+          <button class="btn btn-xs btn-info" v-on:click.prevent="useThumbnail(picture.name)">เเสดงหน้าฟีด</button>
+          <button class="btn btn-xs btn-danger" v-on:click.prevent="delFile(picture)">ลบ</button>
         </li>        
       </transition-group>
       <div class="clearfix"></div>
       </div>  
-      <p><strong>content: </strong></p>
+      <p><strong>เนื้อหา: </strong></p>
       <p><vue-ckeditor v-model.lazy="book.content" :config="config" @blur="onBlur($event)" @focus="onFocus($event)" /></p>            
       <p>
-        <label class="control-label">Category :</label>
+        <label class="control-label">ประเภท :</label>
         <input type="text" v-model="book.category" class="form-control">
       </p>     
       <p>
-        <label class="control-label">Prices :</label>
+        <label class="control-label">ราคา :</label>
         <input type="text" v-model="book.prices" class="form-control">
       </p>       
       <p>
-        <button class="btn btn-warning" type="submit">Update Book</button>
-        <button class="btn btn-default" type="button" v-on:click="navigateTo('/books')">Back</button>
+        <button class="btn btn-warning" type="submit">อัพเดท</button>
+        <button class="btn btn-default" type="button" v-on:click="navigateTo('/books')">กลับ</button>
       </p>      
       
     </form>   

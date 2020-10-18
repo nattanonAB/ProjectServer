@@ -2,7 +2,7 @@
     <div>
         <main-header navsel="back"></main-header>
         <br><br><br>
-        <center><h1>Show User</h1>
+        <center><h1>รายละเอียดผู้ใช้งาน</h1>
         <table border="0">
             <tr>
                 <th class="d">
@@ -24,7 +24,7 @@
             <br>
             <tr>
                 <th class="d">
-                    <center><b>email:</b></center>
+                    <center><b>อีเมล:</b></center>
                 </th>
                 <th class ="c">
                     <div class="form-control center_div" readonly> {{ user.email }}</div>
@@ -33,7 +33,7 @@
             <br>
             <tr>
                 <th class="d">
-                    <center><b>password:</b></center>
+                    <center><b>รหัส:</b></center>
                 </th>
                 <th class ="c">
                     <div class="form-control center_div" readonly> {{ user.password }}</div>
@@ -42,7 +42,7 @@
             <br>
             <tr>
                 <th class="d">
-                    <center><b>status:</b></center>
+                    <center><b>สถานะ:</b></center>
                 </th>
                 <th class ="c">
                     <div class="form-control center_div" readonly> {{ user.status }}</div>
@@ -51,7 +51,7 @@
             <br>
             <tr>
                 <th class="d">
-                    <center><b>type:</b></center>
+                    <center><b>ระดับ:</b></center>
                 </th>
                 <th class ="c">
                     <div class="form-control center_div" readonly> {{ user.type }}</div>
@@ -61,7 +61,7 @@
         </center>
         <br>
         
-        <center><button class="btn btn-success btn-sm" v-on:click="navigateTo('/users')">Back..</button></center>
+        <center><button class="btn btn-success btn-sm" v-on:click="navigateTo('/users')">ย้อนกลับ..</button></center>
     </div>
 </template>
 <script>

@@ -7,17 +7,17 @@ import UserEdit from '@/components/Users/EditUser'
 import UserShow from '@/components/Users/ShowUser'
 // Authen
 import Login from '@/components/Login'
-// Blogs
-import BlogIndex from '@/components/Blogs/Index'
-import BlogCreate from '@/components/Blogs/CreateBlog'
-import BlogEdit from '@/components/Blogs/EditBlog'
-import BlogShow from '@/components/Blogs/ShowBlog'
+// Tours
+import TourIndex from '@/components/Tours/Index'
+import TourCreate from '@/components/Tours/CreateTour'
+import TourEdit from '@/components/Tours/EditTour'
+import TourShow from '@/components/Tours/ShowTour'
 import CommentIndex from '@/components/Comments/Index'
 // Upload Testing
 import Upload from '@/components/Utils/Upload'
 // Front
 import FrontIndex from '@/components/Fronts/Index'
-import FrontShow from '@/components/Fronts/ShowBlog'
+import FrontShow from '@/components/Fronts/ShowTour'
 import FrontBooks from '@/components/Fronts/Books'
 import FrontshowBooks from '@/components/Fronts/showBook'
 import FrontCartlist from '@/components/Fronts/Cartlist'
@@ -28,6 +28,8 @@ import BookCreate from '@/components/Books/CreateBook'
 import BookEdit from '@/components/Books/EditBook'
 import BookShow from '@/components/Books/ShowBook'
 import Cartlist from '@/components/Books/Cartlist'
+
+
 Vue.use(Router)
 export default new Router({
   mode: 'history',
@@ -58,26 +60,26 @@ export default new Router({
       name: 'login',
       component: Login
     },
-    // blogs
+    // tours
     {
-    path: '/blogs',
-    name: 'blogs',
-    component: BlogIndex
+    path: '/tours',
+    name: 'tours',
+    component: TourIndex
     },
     {
-      path: '/blog/create',
-      name: 'blogs-create',
-      component: BlogCreate
+      path: '/tour/create',
+      name: 'tours-create',
+      component: TourCreate
     },
     {
-      path: '/blog/edit/:blogId',
-      name: 'blog-edit',
-      component: BlogEdit
+      path: '/tour/edit/:tourId',
+      name: 'tour-edit',
+      component: TourEdit
     },
     {
-      path: '/blog/:blogId',
-      name: 'blog',
-      component: BlogShow
+      path: '/tour/:tourId',
+      name: 'tour',
+      component: TourShow
     },
     // comments
     {
@@ -113,7 +115,7 @@ export default new Router({
       component: FrontshowBooks
     },
     {
-      path: '/front/read/:blogId',
+      path: '/front/read/:tourId',
       name: 'front-read',
       component: FrontShow
     },

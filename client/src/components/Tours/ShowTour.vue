@@ -2,20 +2,20 @@
     <div class="component-wrapper container">
         <main-header navsel="back"></main-header>
         <br><br>
-        <div v-if="blog" >
-            <div class="blog-wrapper" v-if="blog != null">
-                <h1>{{ blog.title }}</h1>
-                <p><strong>Category: </strong> 
-                <a href="#" v-on:click.prevent="navigateTo(`/blogs?search=${blog.category}`)">{{blog.category }}</a></p>
+        <div v-if="tour" >
+            <div class="tour-wrapper" v-if="tour != null">
+                <h1>{{ tour.title }}</h1>
+                <p><strong>ประเภท: </strong> 
+                <a href="#" v-on:click.prevent="navigateTo(`/tours?search=${tour.category}`)">{{tour.category }}</a></p>
                 <p>
-          <strong>status:</strong> {{blog.status}}
+          <strong>สถานะ:</strong> {{tour.status}}
         </p>
-                <div class="content" v-html="blog.content"></div>
-                <!-- <p>category: {{ blog.category }}</p>
-                <p>status: {{ blog.status }}</p> -->
+                <div class="content" v-html="tour.content"></div>
+                <!-- <p>category: {{ tour.category }}</p>
+                <p>status: {{ tour.status }}</p> -->
             </div>
-            <div class="back-nav"><button class="btn btn-success" v-on:click="navigateTo('/blogs')"><i class="fas fa-arrow-left"></i> Back..</button></div>
-            <comment-comp v-bind:blogid="blog.id" v-bind:user="user"></comment-comp>
+            <div class="back-nav"><button class="btn btn-success" v-on:click="navigateTo('/tours')"><i class="fas fa-arrow-left"></i> ย้อนกลับ..</button></div>
+            <comment-comp v-bind:tourid="tour.id" v-bind:user="user"></comment-comp>
             <transition name="fade">
                 <div v-if="resultUpdated != ''" class="popup-msg">
                     <p>{{ resultUpdated }}</p>
@@ -27,14 +27,14 @@
 </template>
 <script>
     import {mapState} from 'vuex'
-    import BlogsService from '@/services/BlogsService'
+    import ToursService from '@/services/ToursService'
     import UsersService from '@/services/UsersService'
     import CommentComp from '@/components/Fronts/Comment'
 
     export default {
         data () {
             return {
-                blog: null,
+                tour: null,
                 resultUpdated: '',
                 users:null,
             }
@@ -43,11 +43,11 @@
             CommentComp
         },
         async created () {
-            // get blog
+            // get tour
             // check permission first
             try {
-                let blogId = this.$route.params.blogId
-                this.blog = (await BlogsService.show(blogId)).data
+                let tourId = this.$route.params.tourId
+                this.tour = (await ToursService.show(tourId)).data
             } catch (error) {
                 console.log (error)
             }
@@ -77,7 +77,7 @@
     .hero h1 {
         margin-top: 30px;
     }
-    .blog-wrapper {
+    .tour-wrapper {
         margin-top:20px;
         padding: 40px;
         box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
@@ -86,17 +86,17 @@
         margin-top: 20px;
         text-align: center;
     }
-    .blog-wrapper h1{
+    .tour-wrapper h1{
         text-align: center;
         font-family: 'kanit';
         padding-bottom: 50px;
     }
-    .blog-wrapper p {
+    .tour-wrapper p {
         font-family: 'kanit';
         font-size: 1.4em;
         padding-bottom:20px;
     }
-    .blog-wrapper .content {
+    .tour-wrapper .content {
         font-family: 'kanit';
         font-size: 1.2em;
     }

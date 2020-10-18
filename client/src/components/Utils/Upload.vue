@@ -11,13 +11,13 @@
 
                 <!-- <p v-if="isInitial || isSuccess"> -->
                 <p v-if="isInitial">
-                    Drag your file(s) here to begin<br> or click to browse
+                    ลากไฟล์มาไว้ที่นี่<br> หรือคลิกเพื่อเลือกไฟล์
                 </p>
                 <p v-if="isSaving">
-                    Uploading {{ fileCount }} files...
+                    กำลังอัปโหลด {{ fileCount }} ไฟล์...
                 </p>
                 <p v-if="isSuccess">
-                    Upload Successful.
+                    อัปโหลดสำเร็จ.
                 </p>
             </div>
         </form>

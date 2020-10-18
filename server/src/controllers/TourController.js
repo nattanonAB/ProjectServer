@@ -1,15 +1,15 @@
-const {Blog} = require('../models')
+const {Tour} = require('../models')
 
 module.exports = {
 
-    // indx with serach blog
+    // indx with serach tour
     async index (req, res) {
         try {
-            let blogs = null
+            let tours = null
             const search = req.query.search
             // console.log('search key: ' + search)
             if (search) {
-                blogs = await Blog.findAll({
+                tours = await Tour.findAll({
                     where: {
                         $or: [
                             'title', 'content', 'category'
@@ -22,84 +22,84 @@ module.exports = {
                     order: [['updatedAt', 'DESC']]
                 })
             } else {
-                blogs = await Blog.findAll({
+                tours = await Tour.findAll({
                     order: [['updatedAt', 'DESC']]
                 })
             }
-                res.send(blogs)
+                res.send(tours)
             } catch (err) {
             res.status(500).send({
-                error: 'an error has occured trying to fetch the blogs'
+                error: 'an error has occured trying to fetch the tours'
             })
         }
     },
-    // create Blog
+    // create Tour
     async create (req, res) {
         // res.send(JSON.stringify(req.body))
         try {
-            const blog = await Blog.create(req.body)
-            res.send(blog.toJSON())
+            const tour = await Tour.create(req.body)
+            res.send(tour.toJSON())
         } catch (err) {
             res.status(500).send({
-                error: 'Create blog incorrect'
+                error: 'Create tour incorrect'
             })
         }
     },
 
-    // edit blog, suspend, active
+    // edit tour, suspend, active
     async put (req, res) {
         try {
-            await Blog.update(req.body, {
+            await Tour.update(req.body, {
                 where: {
-                    id: req.params.blogId
+                    id: req.params.tourId
                 }
             })
         res.send(req.body)
         } catch (err) {
             req.status(500).send({
-                error: 'Update blog incorrect'
+                error: 'Update tour incorrect'
             })
         }
     },
-        // delete blog
+        // delete tour
     async remove (req, res) {
         try {
-            const blog = await Blog.findOne({
+            const tour = await Tour.findOne({
                 where: {
-                id: req.params.blogId
+                id: req.params.tourId
                 }
             })
-            if(!blog){
+            if(!tour){
                 return res.status(403).send({
-                    error: 'The blog information was incorrect'
+                    error: 'The tour information was incorrect'
                 })
             }
-            await blog.destroy()
-            res.send(blog)
+            await tour.destroy()
+            res.send(tour)
         } catch (err) {
             req.status(500).send({
-                error: 'The blog information was incorrect'
+                error: 'The tour information was incorrect'
             })
         }
     },
-        // get blog by id
+        // get tour by id
     async show (req, res) {
         try {
-            const blog = await Blog.findById(req.params.blogId)
-            res.send(blog)
+            const tour = await Tour.findById(req.params.tourId)
+            res.send(tour)
         } catch (err) {
             req.status(500).send({
-                error: 'The blog information was incorrect'
+                error: 'The tour information was incorrect'
             })
         }
     },
     async frontIndex (req, res) {
         try {
-            let blogs = null
+            let tours = null
             const search = req.query.search
             console.log('----------> search key: ' + search)
             if (search) {
-                blogs = await Blog.findAll({
+                tours = await Tour.findAll({
                     where: {
                         $or: [
                             'title', 'content', 'category'
@@ -120,17 +120,17 @@ module.exports = {
                     order: [['createdAt', 'DESC']]
                 })
             } else {
-                blogs = await Blog.findAll({
+                tours = await Tour.findAll({
                 where: {
                     'status': 'published'
                 },
                     order: [['createdAt', 'DESC']]
                 })
             }
-            res.send(blogs)
+            res.send(tours)
         }catch (err) {
             res.status(500).send({
-                error: 'an error has occured trying to fetch the blogs'
+                error: 'an error has occured trying to fetch the tours'
             })
         }
     },

@@ -1,7 +1,7 @@
 const UserController = require('./controllers/UserController')
 const UserAuthenController = require('./controllers/UserAuthenController')
 const isAuthenController = require('./authen/isAuthenController') //ใช้เช็ค token
-const BlogController = require('./controllers/BlogController')
+const TourController = require('./controllers/TourController')
 const BookController = require('./controllers/BookController')
 const CommentController = require('./controllers/CommentController')
 const BuyController = require('./controllers/BuyController')
@@ -60,31 +60,31 @@ module.exports = (app) => {
     app.post('/login',
         UserAuthenController.login
     )
-    // blog route
-    // create blog
-    app.post('/blog',
+    // tour route
+    // create tour
+    app.post('/tour',
     isAuthenController,
-        BlogController.create
+        TourController.create
     )
-    // edit blog, suspend, active
-    app.put('/blog/:blogId',
+    // edit tour, suspend, active
+    app.put('/tour/:tourId',
     isAuthenController,
-        BlogController.put
+        TourController.put
     )
-    // delete blog
-    app.delete('/blog/:blogId',
+    // delete tour
+    app.delete('/tour/:tourId',
     isAuthenController,
-        BlogController.remove
+        TourController.remove
     )
-    // get blog by id
-    app.get('/blog/:blogId',
+    // get tour by id
+    app.get('/tour/:tourId',
     isAuthenController,
-        BlogController.show
+        TourController.show
     )
-    // get all blog
-    app.get('/blogs',
+    // get all tour
+    app.get('/tours',
         isAuthenController,// ใช้เช็ค token
-        BlogController.index
+        TourController.index
     )
     // comment route
     // create comment
@@ -144,9 +144,9 @@ module.exports = (app) => {
     })
     
     // get comment by id
-    app.get('/comment/blog/:blogId',
+    app.get('/comment/tour/:tourId',
     isAuthenController,
-        CommentController.blog
+        CommentController.tour
     )
 
     // get comment by id
@@ -159,8 +159,8 @@ module.exports = (app) => {
     app.get('/users/front',
         UserController.getFront
     )
-    app.get('/blogs/front',
-        BlogController.frontIndex
+    app.get('/tours/front',
+        TourController.frontIndex
     )
     
     // book route

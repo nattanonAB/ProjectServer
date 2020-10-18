@@ -16,7 +16,7 @@
                     <h4>
                       {{ transection.booktitle }} จํานวน {{ transection.qty}} x {{ transection.prices }}
                     </h4>
-                    <h4>email: {{ transection.email }}</h4>
+                    <h4>อีเมล: {{ transection.email }}</h4>
                     <h4>
                       ชื่อ: {{ transection.username }} {{ transection.userlastname }}
                     </h4>

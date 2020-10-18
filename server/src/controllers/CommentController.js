@@ -11,7 +11,7 @@ module.exports = {
                 comments = await Comment.findAll({
                     where: {
                         $or: [
-                            'id', 'blogid', 'comment'
+                            'id', 'tourid', 'comment'
                         ].map(key => ({
                             [key]: {
                                 $like: `%${search}%`,
@@ -93,12 +93,12 @@ module.exports = {
             })
         }
     },
-    // get comment by blog id
- async blog (req, res) {
+    // get comment by tour id
+ async tour (req, res) {
     try {
         const comment = await Comment.findAll({
             where: {
-                blogId:req.params.blogId
+                tourId:req.params.tourId
             },
             order: [['updatedAt', 'DESC']]
         })

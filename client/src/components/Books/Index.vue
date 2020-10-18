@@ -4,7 +4,7 @@
     <div class="book-header">
       <br />
       <br />
-      <h2>ส่วนจัดการ Books</h2>
+      <h2>ส่วนจัดการทัวร์</h2>
       <div>
         <form class="form-inline form-search">
           <div class="form-group">
@@ -14,7 +14,7 @@
                 v-model="search"
                 class="form-control"
                 id="exampleInputAmount"
-                placeholder="Search"
+                placeholder="ค้นหา"
               />
               <div class="input-group-addon">
                 <i class="fas fa-search"></i>
@@ -25,8 +25,8 @@
       </div>
 
       <div class="create-book">
-        <button class="btn btn-success btn-sm" v-on:click="navigateTo('/book/create')">Create book</button>
-        <strong>จํานวน book:</strong>
+        <button class="btn btn-success btn-sm" v-on:click="navigateTo('/book/create')">สร้างสถานที่</button>
+        <strong>จํานวนสถานที่:</strong>
         {{results.length}}
       </div>
 
@@ -35,7 +35,7 @@
           <a v-on:click.prevent="setCategory(cate)" href="#">{{ cate }}</a>
         </li>
         <li class="clear">
-          <a v-on:click.prevent="setCategory(' ')" href="#">Clear</a>
+          <a v-on:click.prevent="setCategory(' ')" href="#">ล้าง</a>
         </li>
       </ul>
       <div class="clearfix"></div>
@@ -54,36 +54,36 @@
         <div v-html="book.content.slice(0,200) + '...'"></div>
         <div class="book-info">
           <p>
-            <strong>Category:</strong>
+            <strong>จังหวัด:</strong>
             {{ book.category }}
           </p>
           <p>
-            <strong>Create:</strong>
+            <strong>เวลาสร้าง:</strong>
             {{ book.createdAt }}
           </p>
           <p>
-            <strong>status:</strong>
+            <strong>สถานะ:</strong>
             {{ book.status }}
           </p>
           <p>
-            <strong>Prices:</strong>
+            <strong>ราคา:</strong>
             {{ book.prices | getNumberWithCommas }} บาท
           </p>
           <!-- <p>status: {{ book.status }}</p> -->
           <p>
-            <button class="btn btn-sm btn-info" v-on:click="navigateTo('/book/'+ book.id)">View Book</button>
+            <button class="btn btn-sm btn-info" v-on:click="navigateTo('/book/'+ book.id)">ดูรายละเอียด</button>
             <button
               class="btn btn-sm btn-warning"
               v-on:click="navigateTo('/book/edit/'+ book.id)"
-            >Edit book</button>
-            <button class="btn btn-sm btn-danger" v-on:click="deleteBook(book)">Delete</button>
+            >เเก้ไข</button>
+            <button class="btn btn-sm btn-danger" v-on:click="deleteBook(book)">ลบ</button>
           </p>
           <p>
             <a class="btn btn-danger btn-sm" href="#" v-on:click.prevent="suspend(book.id)">
-              <i class="fas fa-pause"></i> Suspend
+              <i class="fas fa-pause"></i> ระงับ
             </a>&nbsp;
             <a class="btn btn-success btn-sm" href="#" v-on:click.prevent="publish(book.id)">
-              <i class="fas fa-check"></i> Published
+              <i class="fas fa-check"></i> เปิดใช้
             </a>&nbsp;
           </p>
         </div>

@@ -4,7 +4,7 @@
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand navbar-link" href="#" v-on:click.prevent="navigateTo('/dashboard')">
-                <img src="../assets/logo.png" id="logo">
+                <img src="../assets/tour1.png" id="tour1">
             </a>
             <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1">
                 <span class="sr-only">Toggle navigation</span>
@@ -14,23 +14,23 @@
         </div>
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><router-link :to="{name: 'blogs'}" >Blogs</router-link></li>
-                <li role="presentation"><router-link :to="{name: 'books'}">Books</router-link></li>
-                <li><router-link :to="{name: 'users'}" >Users</router-link></li>
-                <li><router-link :to="{name: 'comments'}" >Comments</router-link></li>
-                <li><router-link :to="{name: 'Cartlist'}" >Cartlist</router-link></li>
-                <li v-if="!isUserLoggedIn"><router-link :to="{name: 'login'}" >Login</router-link></li>
+                <li><router-link :to="{name: 'tours'}" >จังหวัด</router-link></li>
+                <li role="presentation"><router-link :to="{name: 'books'}">จองทัวร์</router-link></li>
+                <li><router-link :to="{name: 'users'}" >ผู้ใช้งาน</router-link></li>
+                <li><router-link :to="{name: 'comments'}" >ความคิดเห็น</router-link></li>
+                <li><router-link :to="{name: 'Cartlist'}" >รายการจอง</router-link></li>
+                <li v-if="!isUserLoggedIn"><router-link :to="{name: 'login'}" >เข้าสู่ระบบ</router-link></li>
                 <transition name="fade">
                     <li v-if="isUserLoggedIn" role="presentation"><a href="#">{{user.name}}</a></li>
                 </transition>
-                <li v-if="isUserLoggedIn" role="presentation"><a href="#" v-on:click.prevent="logout">Logout</a></li>
+                <li v-if="isUserLoggedIn" role="presentation"><a href="#" v-on:click.prevent="logout">ออกจากระบบ</a></li>
             </ul>
         </div>
     </div>
     <!-- old navbar 
     <div class="nv-navbar">
     <ul class="nav">
-    <li><router-link :to="{name: 'blogs'}" >Blogs</router-link></li>
+    <li><router-link :to="{name: 'tours'}" >Tours</router-link></li>
     <li><router-link :to="{name: 'users'}" >Users</router-link></li>
     <li><router-link :to="{name: 'comments'}" >Comments</router-link></li>
     <li><router-link :to="{name: 'login'}" >Login</router-link></li>
@@ -47,7 +47,7 @@ export default {
     methods: {
         logout () {
             this.$store.dispatch('setToken', null)
-            this.$store.dispatch('setBlog', null)
+            this.$store.dispatch('setTour', null)
             this.$router.push({
                 name: 'login'
             })
@@ -98,7 +98,7 @@ export default {
     }
 
     .navbar-brand > img {
-        width: 36px;
+        width: 40px;
         padding: 12px 0;
         margin-top: -20px;
     }

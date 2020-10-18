@@ -6,14 +6,14 @@
       <div class="book-wrapper" v-if="book != null">
         <h1>{{ book.title }}</h1>
         <p>
-          <strong>Category:</strong>
+          <strong>ประเภท:</strong>
           <a
             href="#"
             v-on:click.prevent="navigateTo(`/books?search=${book.category}`)"
           >{{book.category }}</a>
         </p>
         <p>
-          <strong>status:</strong> {{book.status}}
+          <strong>สถานะ:</strong> {{book.status}}
         </p>
         <div class="content" v-html="book.content"></div>
         <!-- <p>category: {{ book.category }}</p>
@@ -21,7 +21,7 @@
       </div>
       <div class="back-nav">
         <button class="btn btn-success" v-on:click="navigateTo('/books')">
-          <i class="fas fa-arrow-left"></i> Back..
+          <i class="fas fa-arrow-left"></i> ย้อนกลับ..
         </button>
       </div>
       <br />

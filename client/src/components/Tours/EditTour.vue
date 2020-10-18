@@ -1,62 +1,64 @@
 <template>
-  <div class="container blog-wrapper">
+  <div class="container tour-wrapper">
     <main-header navsel="back"></main-header>
-    <h1>Create Blog</h1>
-    <form v-on:submit.prevent = "createBlog">
+    <h1>เเก้ไขจังหวัด</h1>
+    <form v-on:submit.prevent = "editTour" >
+      <!-- <p>title: <input type="text" v-model="tour.title"></p> -->
       <p>
-        <label for="" class="control-label">Title: </label>
-        <input type="text" v-model="blog.title" class="form-control">        
+        <label for="" class="control-label">หัวข้อ: </label>
+        <input type="text" v-model="tour.title" class="form-control">        
       </p>
       <transition name="fade">
-        <div class="thumbnail-pic" v-if="blog.thumbnail != 'null'">
-          <img class="img-thumbnail" :src="BASE_URL+blog.thumbnail" alt="thumbnail">
+        <div class="thumbnail-pic" v-if="tour.thumbnail != 'null'">
+          <img class="img-thumbnail" :src="BASE_URL+tour.thumbnail" alt="thumbnail">
         </div>
-      </transition>
-      <form enctype="multipart/form-data" novalidate>
+      </transition>  
+      <form id="upload-form" enctype="multipart/form-data" novalidate>
         <div class="dropbox">
           <input type="file" multiple :name="uploadFieldName" :disabled="isSaving" @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length"
             accept="image/*" class="input-file">
             <!-- <p v-if="isInitial || isSuccess"> -->
             <p v-if="isInitial">
-              Drag your file(s) here to begin<br> or click to browse
+              ลากไฟล์มาไว้ที่นี่<br> หรือคลิกเพื่อเลือกไฟล์
             </p>
             <p v-if="isSaving">
-              Uploading {{ fileCount }} files...
+              กำลังอัปโหลด {{ fileCount }} ไฟล์...
             </p>   
             <p v-if="isSuccess">
-              Upload Successful.
+              อัปโหลดสำเร็จ.
             </p>        
         </div>
       </form>
       <div>
-        <transition-group tag="ul" name="fade" class="pictures">        
-          <li v-for="picture in pictures" v-bind:key="picture.id">              
-            <img class="img-thumbnail" style="margin-bottom:5px;" :src="BASE_URL+picture.name" alt="picture image">              
-            <br />  
-            <button class="btn btn-xs btn-info" v-on:click.prevent="useThumbnail(picture.name)">Thumbnail</button>
-            <button class="btn btn-xs btn-danger" v-on:click.prevent="delFile(picture)">Delete</button>
-          </li>        
-        </transition-group>
-        <div class="clearfix"></div>
+      <transition-group tag="ul" name="fade" class="pictures">        
+        <li v-for="picture in pictures" v-bind:key="picture.id">              
+          <img class="img-thumbnail" style="margin-bottom:5px;" :src="BASE_URL+picture.name" alt="picture image">              
+          <br />  
+          <button class="btn btn-xs btn-info" v-on:click.prevent="useThumbnail(picture.name)">เเสดงหน้าฟีด</button>
+          <button class="btn btn-xs btn-danger" v-on:click.prevent="delFile(picture)">ลบ</button>
+        </li>        
+      </transition-group>
+      <div class="clearfix"></div>
       </div>  
-      <p><strong>content: </strong></p>
-      <p><vue-ckeditor v-model.lazy="blog.content" :config="config" @blur="onBlur($event)" @focus="onFocus($event)" /></p>
+      <p><strong>เนื้อหา: </strong></p>
+      <p><vue-ckeditor v-model.lazy="tour.content" :config="config" @blur="onBlur($event)" @focus="onFocus($event)" /></p>            
       <p>
-        <label class="control-label">Category :</label>
-        <input type="text" v-model="blog.category" class="form-control">
-      </p> 
+        <label class="control-label">ประเภท :</label>
+        <input type="text" v-model="tour.category" class="form-control">
+      </p>            
       <p>
-        <button class="btn btn-success" type="submit">Create Blog</button>
-        <button class="btn btn-default" type="button" v-on:click="navigateTo('/blogs')">Back</button>
-      </p> 
+        <button class="btn btn-warning" type="submit">ยืนยัน</button>
+        <button class="btn btn-default" type="button" v-on:click="navigateTo('/tours')">กลับ</button>
+      </p>      
+      
     </form>   
     <br>    
   </div>
 </template>
 <script>
-import BlogsService from '@/services/BlogsService'
-import VueCkeditor from "vue-ckeditor2"
+import ToursService from '@/services/ToursService'
 import UploadService from '@/services/UploadService'
+import VueCkeditor from "vue-ckeditor2"
 import {mapState} from 'vuex'
 
 const STATUS_INITIAL = 0,
@@ -65,29 +67,26 @@ const STATUS_INITIAL = 0,
   STATUS_FAILED = 3
 
 export default {
-  mounted () {
-    if (!this.isUserLoggedIn) {
-      this.$router.push({
-        name: 'login'        
-      })
-    }
-  },
   data () {
     return {
-      blog: {
+      // tour data
+      tour: {
         title: '',
         thumbnail: 'null',
-        pictures: [],
+        pictures: 'null',
         content: '',
         category: '',
-        status: 'Suspend'
+        status: ''
       },
+
+      // ckeditor
       config: {
         toolbar: [
           ["Bold", "Italic", "Underline", "Strike", "Subscript", "Superscript"]
         ],
         height: 300
       },
+
       // upload data
       BASE_URL: "http://localhost:8081/assets/uploads/",
       error: null,      
@@ -95,36 +94,59 @@ export default {
       currentStatus: null,
       uploadFieldName: "userPhoto",      
       uploadedFileNames:[],
-      pictures: [],
       pictureIndex: 0,
+
+      // show result
+      pictures: [],
     }
   },
-  methods: {// upload
+  methods: {
     navigateTo (route) {
       this.$router.push(route)
     },
+    // ckedior ()
+    onBlur(editor) {
+      console.log(editor);
+    },
+    onFocus(editor) {
+      console.log(editor);
+    },
+    
+    // tour
+    async editTour () {
+      this.tour.pictures = JSON.stringify(this.pictures)
+      try {
+        await ToursService.put(this.tour)
+        this.$router.push({
+          name: 'tours'
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    },
+
+    // manage pic field
     useThumbnail (filename) {     
       console.log(filename) 
-      this.blog.thumbnail = filename
+      this.tour.thumbnail = filename
     },
     async delFile (material){
-      let result = confirm("Want to delete?")
-      if (result) {
-        let dataJSON = {
-          "filename":material.name
-        }
-        
-        await UploadService.delete(dataJSON)      
+      let dataJSON = {
+        "filename":material.name
+      }
+      
+      await UploadService.delete(dataJSON)      
 
-        for (var i=0;i<this.pictures.length;i++){
-          if(this.pictures[i].id === material.id) {
-            this.pictures.splice(i, 1)
-            this.materialIndex--
-            break
-          }
-        }    
-      } 
+      for (var i=0;i<this.pictures.length;i++){
+        if(this.pictures[i].id === material.id) {
+          this.pictures.splice(i, 1)
+          this.materialIndex--
+          break
+        }
+      }     
     },
+
+    // upload
     wait(ms) {
       return x => {
         return new Promise(resolve => setTimeout(() => resolve(x), ms));
@@ -165,6 +187,8 @@ export default {
           }  
         })
 
+
+        this.clearUploadResult()
       } catch (error) {
         console.log(error)
         this.currentStatus = STATUS_FAILED
@@ -183,32 +207,16 @@ export default {
       });
 
       // save it
-      this.save(formData);
+      this.save(formData)
+
+      // clear form
+      document.getElementById("upload-form").reset()
     },
     clearUploadResult: function(){            
       setTimeout(() => this.reset(), 5000);
-    },
-    async createBlog () {
-      this.blog.pictures = JSON.stringify(this.pictures)
-      try {
-        await BlogsService.post(this.blog)
-        this.$router.push({
-          name: 'blogs'
-        })
-      } catch (err) {
-        console.log(err)
-      }
-    },
-    onBlur (editor) {
-      console.log(editor);
-    },
-    onFocus (editor) {
-      console.log(editor);
-    },
+    }
   },
-  components: { 
-    VueCkeditor 
-  },
+
   computed: {
     ...mapState([
       'isUserLoggedIn',
@@ -227,8 +235,27 @@ export default {
       return this.currentStatus === STATUS_FAILED;
     }
   },
-  created () {
-    this.reset(),
+
+  async mounted () {
+    if (!this.isUserLoggedIn) {
+      this.$router.push({
+        name: 'login'        
+      })
+    }
+
+    try {      
+      let tourId = this.$route.params.tourId
+      this.tour = (await ToursService.show(tourId)).data 
+      this.pictures = JSON.parse(this.tour.pictures)
+    } catch (error) {
+      console.log (error)
+    }
+  },
+  
+  created () {    
+
+    this.reset()
+
     this.config.toolbar = [
       {
         name: "document",
@@ -331,12 +358,15 @@ export default {
       { name: "colors", items: ["TextColor", "BGColor"] },
       { name: "tools", items: ["Maximize", "ShowBlocks"] },
       { name: "about", items: ["About"] }
-    ]
-  }
+    ] 
+  },
+  components: { 
+    VueCkeditor 
+  },
 }
 </script>
 <style scoped>
-.blog-wrapper {
+.tour-wrapper {
   margin-top:80px;
 }
 
@@ -344,6 +374,24 @@ export default {
 .thumbnail-pic img{
   width:200px;
   margin-bottom: 10px;
+}
+/* display uploaded pic */
+ul.pictures {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+ul.pictures li {
+  float: left;
+}
+
+ul.pictures li img {
+  max-width: 180px;
+  margin-right: 20px;
 }
 
 /* uplaod */
@@ -375,24 +423,4 @@ export default {
   text-align: center;
   padding: 50px 0;
 }
-
-/* display uplaod */
-ul.pictures {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  float: left;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-ul.pictures li {
-  float: left;
-}
-
-ul.pictures li img {
-  max-width: 180px;
-  margin-right: 20px;
-}
-
 </style>

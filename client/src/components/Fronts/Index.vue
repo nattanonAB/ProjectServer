@@ -67,11 +67,7 @@
               </p>
               <!-- <p>status: {{ tour.status }}</p> -->
               <p>
-                <button
-                  class="btn btn-sm btn-info"
-                  v-on:click="navigateTo('/front/read/'+ tour.id)"
-                >
-                  <i class="fab fa-readme"></i> ดูรายละเอี่ยด
+                <button class="btn btn-sm btn-info" v-on:click="navigateTo('/front/read/'+ tour.id)"><i class="fab fa-readme"></i> ดูรายละเอี่ยด
                 </button>
               </p>
             </div>
@@ -80,10 +76,7 @@
         </transition-group>
         <div  v-if="tours.length === 0 && loading === false" class="empty-tour">*** ไม่มีข้อมูล***</div>
         <div id="tour-list-bottom">
-          <div
-            class="tour-load-finished"
-            v-if="tours.length === results.length && results.length > 0"
-          >โหลดข้อมูลครบแล้ว</div>
+          <div class="tour-load-finished" v-if="tours.length === results.length && results.length > 0">โหลดข้อมูลครบแล้ว</div>
         </div>
       </div>
     </div>

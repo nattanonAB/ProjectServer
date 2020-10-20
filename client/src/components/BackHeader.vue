@@ -17,7 +17,6 @@
                 <li><router-link :to="{name: 'tours'}" >จังหวัด</router-link></li>
                 <li role="presentation"><router-link :to="{name: 'books'}">จองทัวร์</router-link></li>
                 <li><router-link :to="{name: 'users'}" >ผู้ใช้งาน</router-link></li>
-                <li><router-link :to="{name: 'comments'}" >ความคิดเห็น</router-link></li>
                 <li><router-link :to="{name: 'Cartlist'}" >รายการจอง</router-link></li>
                 <li v-if="!isUserLoggedIn"><router-link :to="{name: 'login'}" >เข้าสู่ระบบ</router-link></li>
                 <transition name="fade">

@@ -32,7 +32,7 @@
 import { mapState } from "vuex";
 import BooksService from "@/services/BooksService";
 import UsersService from "@/services/UsersService";
-import CommentComp from "@/components/Fronts/Comment";
+
 
 export default {
   data() {
@@ -43,7 +43,7 @@ export default {
     };
   },
   components: {
-    CommentComp,
+    
   },
   async created() {
     // get book

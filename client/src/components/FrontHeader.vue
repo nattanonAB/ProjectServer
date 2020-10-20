@@ -301,7 +301,7 @@ export default {
   margin-top: -20px;
 }
 .navbar-inverse {
-  background-color: #51415f;
+  background-color: #424242;
 }
 .navbar-inverse .navbar-nav > li > a {
   color: #dbdbf6;

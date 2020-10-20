@@ -368,7 +368,7 @@ export default {
 .hero {
   margin-top: 80px;
   border-radius: 5px;
-  background: lightslategray;
+  background: rgb(105,105,105);
   height: 250px;
   color: white;
   padding: 20px;
@@ -440,8 +440,8 @@ export default {
 }
 .categories li a {
   padding: 5px 10px 5px 10px;
-  background: paleturquoise;
-  color: black;
+  background: rgb(63,63,63);
+  color: rgb(255, 255, 255);
   text-decoration: none;
 }
 .categories li.clear a {

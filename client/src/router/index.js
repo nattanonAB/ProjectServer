@@ -12,7 +12,6 @@ import TourIndex from '@/components/Tours/Index'
 import TourCreate from '@/components/Tours/CreateTour'
 import TourEdit from '@/components/Tours/EditTour'
 import TourShow from '@/components/Tours/ShowTour'
-import CommentIndex from '@/components/Comments/Index'
 // Upload Testing
 import Upload from '@/components/Utils/Upload'
 // Front
@@ -80,12 +79,6 @@ export default new Router({
       path: '/tour/:tourId',
       name: 'tour',
       component: TourShow
-    },
-    // comments
-    {
-      path: '/comments',
-      name: 'comments',
-      component: CommentIndex
     },
     // upload testing
     {

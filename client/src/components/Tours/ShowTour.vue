@@ -15,12 +15,7 @@
                 <p>status: {{ tour.status }}</p> -->
             </div>
             <div class="back-nav"><button class="btn btn-success" v-on:click="navigateTo('/tours')"><i class="fas fa-arrow-left"></i> ย้อนกลับ..</button></div>
-            <comment-comp v-bind:tourid="tour.id" v-bind:user="user"></comment-comp>
-            <transition name="fade">
-                <div v-if="resultUpdated != ''" class="popup-msg">
-                    <p>{{ resultUpdated }}</p>
-                </div>
-            </transition>
+            
             <br>
         </div>
     </div>
@@ -29,7 +24,7 @@
     import {mapState} from 'vuex'
     import ToursService from '@/services/ToursService'
     import UsersService from '@/services/UsersService'
-    import CommentComp from '@/components/Fronts/Comment'
+    
 
     export default {
         data () {
@@ -40,7 +35,7 @@
             }
         },
         components : {
-            CommentComp
+            
         },
         async created () {
             // get tour

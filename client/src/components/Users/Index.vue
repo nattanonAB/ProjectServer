@@ -217,8 +217,8 @@ export default {
 }
 .categories li a {
   padding: 5px 10px 5px 10px;
-  background: paleturquoise;
-  color: black;
+  background: rgb(63, 63, 63);
+  color: rgb(255, 255, 255);
   text-decoration: none;
 }
 .create-blog {

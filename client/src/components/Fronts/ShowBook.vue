@@ -33,7 +33,7 @@
 import { mapState } from "vuex";
 import BooksService from "@/services/BooksService";
 import UsersService from "@/services/UsersService";
-import CommentComp from "@/components/Fronts/Comment";
+
 
 export default {
   data() {
@@ -44,7 +44,7 @@ export default {
     };
   },
   components: {
-    CommentComp,
+    
   },
   async created() {
     // get book
@@ -88,7 +88,7 @@ export default {
 .hero {
   margin-top: 80px;
   border-radius: 5px;
-  background: lightslategray;
+  background: rgb(105,105,105);
   height: 250px;
   color: white;
   padding: 20px;
